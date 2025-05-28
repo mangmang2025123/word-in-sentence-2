@@ -21,7 +21,7 @@
   "commands": {
     "execute_copy_action": {
       "suggested_key": {
-        "default": "F9"
+        "default": "Ctrl+Q"
       },
       "description": "Copy word and context as a question"
     }

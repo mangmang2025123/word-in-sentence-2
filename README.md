@@ -8,7 +8,7 @@ This Chrome extension allows you to quickly copy a word and its surrounding text
 *   Selects the surrounding paragraph or text block.
 *   Formats a question string: "What does "[word]" mean in "[paragraph]""?
 *   Copies the formatted string to the clipboard.
-*   Default hotkey: **F9** (customizable).
+*   Default hotkey: **Ctrl+Q** (customizable).
 
 ## Installation (Loading the Unpacked Extension)
 
@@ -35,7 +35,7 @@ This Chrome extension allows you to quickly copy a word and its surrounding text
 
 1.  Navigate to any webpage with text content.
 2.  Move your mouse cursor over the specific word you are interested in.
-3.  Press the activation hotkey (default is **F9**).
+3.  Press the activation hotkey (default is **Ctrl+Q**).
 4.  The formatted question ("What does [word] mean in [passage]?") will be automatically copied to your clipboard.
 5.  You can then paste this question into a search engine, notes app, etc.
 
