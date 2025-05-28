@@ -100,18 +100,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
       // 2. Get the surrounding paragraph or block of text
       let paragraphText = "";
-      let currentElement = elementUnderMouse;
-      while (currentElement) {
-        // Look for common block-level elements or elements that signify a content block
-        if (['P', 'DIV', 'ARTICLE', 'SECTION', 'BLOCKQUOTE', 'LI', 'TD', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(currentElement.tagName)) {
-          paragraphText = currentElement.innerText || currentElement.textContent;
-          break;
-        }
-        currentElement = currentElement.parentElement;
-      }
+      if (elementUnderMouse) {
+        // Use closest() to find the nearest ancestor that is a common paragraph-like element or a sectioning element.
+        // The order in the selector string can matter if elements are nested (e.g., a P inside a DIV).
+        // We're looking for the most specific sensible block.
+        const closestBlock = elementUnderMouse.closest('P, LI, H1, H2, H3, H4, H5, H6, PRE, BLOCKQUOTE, TD, ARTICLE, SECTION, ASIDE, FIGCAPTION, FIGURE, NAV, MAIN, HEADER, FOOTER');
 
-      if (!paragraphText && elementUnderMouse) { // Fallback to the hovered element's text if no suitable parent found
-        paragraphText = elementUnderMouse.innerText || elementUnderMouse.textContent;
+        if (closestBlock) {
+          paragraphText = closestBlock.innerText || closestBlock.textContent;
+        } else {
+          // Fallback if no specific block is found, use the element itself or its direct parent DIV if that makes sense
+          const parentDiv = elementUnderMouse.closest('DIV');
+          if (parentDiv) {
+            paragraphText = parentDiv.innerText || parentDiv.textContent;
+          } else if (elementUnderMouse.innerText || elementUnderMouse.textContent) {
+            // If truly nothing else, use the element under mouse itself
+             paragraphText = elementUnderMouse.innerText || elementUnderMouse.textContent;
+          }
+        }
       }
       
       paragraphText = paragraphText.trim().replace(/\s+/g, ' '); // Normalize spaces
